@@ -27,7 +27,7 @@ export async function installWithPrompts(
 			case 'owner':
 				return replacements.owner = promptUser('👤 Enter license holder name:')
 			case 'softwareName':
-				return replacements.softwareName = promptUser('💾 Project or software name (optional):')
+				return replacements.softwareName = promptUser('💾 Project or software name:')
 		}
 	})
 

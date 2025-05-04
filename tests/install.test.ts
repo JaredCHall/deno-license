@@ -1,29 +1,50 @@
-import { assertStringIncludes } from '@std/assert'
+import { assertEquals, assertStringIncludes } from '@std/assert'
 import { installWithPrompts } from '../src/install.ts'
-import type { LicenseRegistry } from '../src/LicenseRegistry.ts'
+import { LicenseRegistry } from '../src/LicenseRegistry.ts'
 
-Deno.test('installWithPrompts installs license with mocked registry', async () => {
+Deno.test('installWithPrompts installs license', async () => {
 	const tempDir = await Deno.makeTempDir()
-
-	//@ts-ignore - mock
-	const mockRegistry: LicenseRegistry = {
-		has: () => true,
-		expectedMappings: () => ['year', 'owner'],
-		fetch: (lic: string, year: string, owner: string) => `License: ${lic}\nYear: ${year}\nOwner: ${owner}`,
-	}
+	const restorePrompts = expectPromptChain([
+		{ message: 'License', returnValue: 'hippocratic' },
+		{ message: 'Year of copyright', returnValue: '1840' },
+		{ message: 'Project or software name', returnValue: 'Note G' },
+		{ message: 'license holder', returnValue: 'Ada Lovelace' },
+	])
 
 	try {
-		withExpectedPrompts([], async () => {
-			await installWithPrompts(`${tempDir}/LICENSE.txt`, mockRegistry)
+		await installWithPrompts(`${tempDir}/LICENSE.txt`, new LicenseRegistry())
 
-			const writtenText = await Deno.readTextFile(`${tempDir}/LICENSE.txt`)
+		const writtenText = await Deno.readTextFile(`${tempDir}/LICENSE.txt`)
 
-			assertStringIncludes(writtenText, 'License: mit')
-			assertStringIncludes(writtenText, 'Year: 2024')
-			assertStringIncludes(writtenText, 'Owner: Ada Lovelace')
-		})
+		assertStringIncludes(writtenText, 'Hippocratic License')
+		assertStringIncludes(writtenText, 'Note G Copyright 1840 Ada Lovelace')
 	} finally {
 		await Deno.remove(tempDir, { recursive: true })
+		restorePrompts()
+	}
+})
+
+Deno.test('installWithPrompts exits when license not found', {
+	permissions: {
+		write: false,
+	},
+}, async () => {
+	const originalExit = Deno.exit
+	Deno.exit = (code: number | undefined): never => {
+		throw new Error(`Deno.exit(${code})`)
+	}
+	const restorePrompts = expectPromptChain([
+		{ message: 'License', returnValue: 'unknown' },
+	])
+
+	try {
+		await installWithPrompts(`SOME_FILE.txt`, new LicenseRegistry())
+	} catch (err) {
+		const msg = err instanceof Error ? err.message : ''
+		assertEquals(msg, 'Deno.exit(1)')
+	} finally {
+		Deno.exit = originalExit
+		restorePrompts()
 	}
 })
 
@@ -61,19 +82,5 @@ Received: "${msg}"
 
 	return () => {
 		globalThis.prompt = originalPrompt
-	}
-}
-
-function withExpectedPrompts(
-	prompts: ExpectedPrompt[],
-	testFn: () => Promise<void>,
-) {
-	return async () => {
-		const restore = expectPromptChain(prompts)
-		try {
-			await testFn()
-		} finally {
-			restore()
-		}
 	}
 }

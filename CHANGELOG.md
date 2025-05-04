@@ -1,3 +1,9 @@
+## [1.1.1] - 2025-05-04
+
+- Improve test coverage by removing overaggressive mockery
+- Add additional test cases to improve coverage
+- Fix inaccurate prompt for software name (it is required, not optional)
+
 ## [1.1.0] - 2025-05-04
 
 - Refactor `installLicense()` into prompt-based CLI method `installWithPrompts()`

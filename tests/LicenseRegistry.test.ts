@@ -66,6 +66,12 @@ Deno.test('expectedMappings returns correct placeholder keys', () => {
 	assertEquals(reg.expectedMappings('Hippocratic'), ['year', 'softwareName', 'owner'])
 })
 
+Deno.test('expectedMappings throws when license is not found', () => {
+	const reg = new LicenseRegistry()
+
+	assertThrows(() => reg.expectedMappings('Unknown'), Error, 'License not found')
+})
+
 Deno.test('normalizeKey maps common aliases to canonical license keys', () => {
 	const cases: Record<string, string> = {
 		// BSD variants
@@ -91,6 +97,8 @@ Deno.test('normalizeKey maps common aliases to canonical license keys', () => {
 		agplv3: 'AGPL-3.0',
 		agpl30: 'AGPL-3.0',
 		agplv30: 'AGPL-3.0',
+		// unknown not found
+		unknown: 'unknown',
 	}
 
 	for (const [input, expected] of Object.entries(cases)) {

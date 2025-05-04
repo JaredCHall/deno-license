@@ -40,7 +40,8 @@ export class LicenseRegistry {
 
 	/** list replacement values required to fetch license properly **/
 	public expectedMappings(license: string): string[] {
-		return this.templatePlaceHolders[license].map(({ mapsTo }) => mapsTo) ?? []
+		if (!this.has(license)) throw new Error(`License not found: ${license}`)
+		return this.templatePlaceHolders[license].map(({ mapsTo }) => mapsTo)
 	}
 
 	/** fetch license and replace common placeholders */
