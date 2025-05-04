@@ -2,13 +2,12 @@
 
 [![deno module](https://img.shields.io/badge/deno%20module-jsr:@jaredhall/deno--license-blue?logo=deno)](https://jsr.io/@jaredhall/deno-license)
 [![CI](https://github.com/JaredCHall/deno-license/actions/workflows/ci.yml/badge.svg)](https://github.com/JaredCHall/deno-license/actions/workflows/ci.yml)
-[![Made with TypeScript](https://img.shields.io/badge/code-TS%20%2B%20Deno%20std-blue?logo=deno)](https://deno.land/std)
 
 **OSI-compliant license scaffolding **  
 
 This tool helps to apply consistent, open-source licenses to libraries or applications—quickly and correctly.
 
-## Quick Setup
+## Usage
 
 ### `deno run --allow-write jsr:jaredhall/deno-license`
 
@@ -18,21 +17,10 @@ This tool helps to apply consistent, open-source licenses to libraries or applic
 ```bash
 deno run --allow-write jsr:jaredhall/deno-license
 📜 License (bsd, mit, gpl, agpl, hippocratic): BSD # input is case-insensitive
-👤 Enter license holder name (e.g. your name or org): Somebody Somewhere
-✅ License written to ./LICENSE
-```
+📅 Year of copyright: 2025
+👤 Enter license holder name: Somebody Somewhere
+✅ License written to LICENSE
 
-## Use as a Module
-
-You may also want to use the module programmatically in your Deno tooling.
-
-```ts
-import { installLicense } from "jsr:jaredhall/deno-license";
-
-await installLicense({
-  projectPath: "./my-other-project", // optional defaults to working directory
-  license: "MIT", // optional will prompt if not provided
-});
 ```
 
 ---

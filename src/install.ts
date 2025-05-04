@@ -23,7 +23,7 @@ export async function installWithPrompts(
 
 	registry.expectedMappings(license).forEach(tokenMapping => {
 		switch(tokenMapping) {
-			case 'year': return replacements.year = promptUser("Year of copyright:", new Date().getFullYear().toString())
+			case 'year': return replacements.year = promptUser("📅 Year of copyright:", new Date().getFullYear().toString())
 			case 'owner': return replacements.owner = promptUser('👤 Enter license holder name:')
 			case 'softwareName': return replacements.softwareName = promptUser("💾 Project or software name (optional):")
 		}

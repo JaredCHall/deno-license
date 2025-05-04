@@ -1,13 +1,13 @@
 {
   "name": "@jaredhall/deno-license",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "exports": "./mod.ts",
   "compilerOptions": {
     "lib": ["dom", "deno.ns"]
   },
   "tasks": {
-    // use the plugin in this project
-    "license:add": "deno run --allow-write mod.ts",
+    // add a license to this project
+    "license": "deno run --allow-write mod.ts",
     // fetch official licenses from the internet
     "build": "deno run --allow-read --allow-write --allow-net scripts/fetch-licenses.ts",
     // run the test suite
