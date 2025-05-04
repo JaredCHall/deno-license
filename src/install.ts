@@ -6,7 +6,9 @@ export async function installWithPrompts(
 		registry = new LicenseRegistry(),
 ): Promise<void> {
 
-	const license = promptUser("📜 License (bsd, mit, gpl, agpl, hippocratic):")?.trim().toLowerCase();
+	const license = LicenseRegistry.normalizeKey(
+			promptUser("📜 License (bsd, mit, gpl, agpl, hippocratic):")
+	);
 	if (!registry.has(license)) {
 		console.error(`❌ Unknown license: ${license}`)
 		Deno.exit(1)
@@ -21,7 +23,7 @@ export async function installWithPrompts(
 
 	registry.expectedMappings(license).forEach(tokenMapping => {
 		switch(tokenMapping) {
-			case 'year': return replacements.year = promptUser("Year of copyright:")
+			case 'year': return replacements.year = promptUser("Year of copyright:", new Date().getFullYear().toString())
 			case 'owner': return replacements.owner = promptUser('👤 Enter license holder name:')
 			case 'softwareName': return replacements.softwareName = promptUser("💾 Project or software name (optional):")
 		}
@@ -32,8 +34,8 @@ export async function installWithPrompts(
 	console.log(`✅ License written to ${outputPath}`)
 }
 
-function promptUser(question: string): string {
-	const input = prompt(question)?.trim()
+function promptUser(question: string, defaultValue?: string): string {
+	const input = prompt(question, defaultValue)?.trim()
 	if(!input) Deno.exit(1);
 	return input;
 }

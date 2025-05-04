@@ -5,5 +5,5 @@ export { installWithPrompts };
 export { LicenseRegistry };
 
 if (import.meta.main) {
-    await installWithPrompts('LICENSE.txt')
+    await installWithPrompts('LICENSE')
 }
