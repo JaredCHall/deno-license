@@ -65,3 +65,35 @@ Deno.test("expectedMappings returns correct placeholder keys", () => {
   assertEquals(reg.expectedMappings("AGPL-3.0"), []) // no placeholders
   assertEquals(reg.expectedMappings("Hippocratic"), ["year", "softwareName", "owner"])
 })
+
+Deno.test("normalizeKey maps common aliases to canonical license keys", () => {
+  const cases: Record<string, string> = {
+    // BSD variants
+    bsd: "BSD-3",
+    bsd3: "BSD-3",
+    bsd3clause: "BSD-3",
+    // MIT
+    mit: "MIT",
+    // Hippocratic
+    hippocratic: "Hippocratic",
+    hippocratic21: "Hippocratic",
+    hippocraticv21: "Hippocratic",
+    hippocraticv2: "Hippocratic",
+    // GPL
+    gpl: "GPL-3.0",
+    gpl3: "GPL-3.0",
+    gplv3: "GPL-3.0",
+    gpl30: "GPL-3.0",
+    gplv30: "GPL-3.0",
+    // AGPL
+    agpl: "AGPL-3.0",
+    agpl3: "AGPL-3.0",
+    agplv3: "AGPL-3.0",
+    agpl30: "AGPL-3.0",
+    agplv30: "AGPL-3.0",
+  }
+
+  for (const [input, expected] of Object.entries(cases)) {
+    assertEquals(LicenseRegistry.normalizeKey(input), expected, `Input: ${input}`)
+  }
+})

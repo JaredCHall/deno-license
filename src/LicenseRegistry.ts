@@ -66,4 +66,30 @@ export class LicenseRegistry {
 
     return text
   }
+
+  /** Normalizes user input into canonical license key (e.g., 'gplv3' → 'GPL-3.0') */
+  static normalizeKey(input: string): string {
+    const key = input.toLowerCase().replace(/[-_.]/g, "")
+    const map: Record<string, string> = {
+      bsd: "BSD-3",
+      bsd3: "BSD-3",
+      bsd3clause: "BSD-3",
+      mit: "MIT",
+      hippocratic: "Hippocratic",
+      hippocratic21: "Hippocratic",
+      hippocraticv21: "Hippocratic",
+      hippocraticv2: "Hippocratic",
+      gpl: "GPL-3.0",
+      gpl3: "GPL-3.0",
+      gplv3: "GPL-3.0",
+      gpl30: "GPL-3.0",
+      gplv30: "GPL-3.0",
+      agpl: "AGPL-3.0",
+      agpl3: "AGPL-3.0",
+      agplv3: "AGPL-3.0",
+      agpl30: "AGPL-3.0",
+      agplv30: "AGPL-3.0",
+    }
+    return map[key] ?? input
+  }
 }
