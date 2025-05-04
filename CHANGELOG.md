@@ -1,3 +1,12 @@
+## [1.1.0] - 2025-05-04
+
+- Refactor `installLicense()` into prompt-based CLI method `installWithPrompts()`
+- Extract logic into new `LicenseRegistry` class with static `.normalizeKey()` method
+- Add full test coverage for prompt flow and registry fetch behavior
+- Support CLI-friendly usage with `--allow-write` only (no read/net/env required)
+- Improve modularity and testability via injected dependencies
+- Keep exports minimal and clear in `mod.ts`
+
 ## [1.0.3] - 2025-05-04
 
 - Fix stale README example
