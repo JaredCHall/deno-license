@@ -10,10 +10,9 @@ Deno.test(
 		{ message: 'Enter license holder name', returnValue: 'Some Person' },
 	], async () => {
 		const tempDir = await Deno.makeTempDir()
-
 		await installLicense({
-			projectPath: tempDir,
-			license: 'BSD-3-Clause',
+			outputFile: `${tempDir}/LICENSE`,
+			license: 'bsd3',
 		})
 
 		const licensePath = `${tempDir}/LICENSE`
@@ -37,9 +36,8 @@ Deno.test(
 		},
 	], async () => {
 		const tempDir = await Deno.makeTempDir()
-
 		await installLicense({
-			projectPath: tempDir,
+			outputFile: `${tempDir}/LICENSE`,
 			license: 'Hippocratic',
 		})
 
@@ -52,9 +50,8 @@ Deno.test(
 
 Deno.test('installs GPL license', async () => {
 	const tempDir = await Deno.makeTempDir()
-
 	await installLicense({
-		projectPath: tempDir,
+		outputFile: `${tempDir}/LICENSE`,
 		license: 'gpl3',
 	})
 
@@ -67,9 +64,8 @@ Deno.test('installs GPL license', async () => {
 
 Deno.test('installs AGPL license', async () => {
 	const tempDir = await Deno.makeTempDir()
-
 	await installLicense({
-		projectPath: tempDir,
+		outputFile: `${tempDir}/LICENSE`,
 		license: 'agpl3',
 	})
 
@@ -86,10 +82,8 @@ Deno.test(
 		{ message: 'Enter license holder name', returnValue: 'Some Person' },
 	], async () => {
 		const tempDir = await Deno.makeTempDir()
-		await Deno.writeTextFile(`${tempDir}/README.md`, '# Project Title\n\n')
-
 		await installLicense({
-			projectPath: tempDir,
+			outputFile: `${tempDir}/LICENSE`,
 			license: 'MIT',
 		})
 
@@ -107,11 +101,11 @@ Deno.test('throws on invalid license key', async () => {
 	await assertRejects(
 		() =>
 			installLicense({
-				projectPath: tempDir,
+				outputFile: `${tempDir}/LICENSE`,
 				license: 'InvalidLicense',
 			}),
 		Error,
-		'Unrecognized license',
+		'License not found',
 	)
 })
 

@@ -16,16 +16,19 @@ if (import.meta.main) {
     Deno.exit(1);
   }
 
+  const outputFileIndex = args.indexOf("--outputFile");
+  const outputFileArg = args.at(outputFileIndex + 1);
+
   try {
     await installLicense({
-      projectPath: ".",
+      outputFile: outputFileArg ?? "LICENSE",
       license: licenseArg,
     });
   } catch (err) {
     if (err instanceof Error) {
       console.error(`💥 ${err.message}`);
     } else {
-      console.error("💥 Unknown error occurred.");
+      console.error("💥💥 Unknown error occurred.");
     }
     Deno.exit(1);
   }

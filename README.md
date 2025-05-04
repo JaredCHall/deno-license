@@ -2,19 +2,17 @@
 
 [![deno module](https://img.shields.io/badge/deno%20module-jsr:@jaredhall/deno--license-blue?logo=deno)](https://jsr.io/@jaredhall/deno-license)
 [![CI](https://github.com/JaredCHall/deno-license/actions/workflows/ci.yml/badge.svg)](https://github.com/JaredCHall/deno-license/actions/workflows/ci.yml)
+[![Made with TypeScript](https://img.shields.io/badge/code-TS%20%2B%20Deno%20std-blue?logo=deno)](https://deno.land/std)
 
-**OSI-compliant license scaffolding for Deno projects.**  
+**OSI-compliant license scaffolding **  
 
-This tool helps you apply consistent, open-source licenses to your libraries or applications—quickly and correctly.
-
-- 100% TypeScript / Zero Dependencies
-
+This tool helps to apply consistent, open-source licenses to libraries or applications—quickly and correctly.
 
 ## Quick Setup
 
 ### `deno run --allow-write jsr:jaredhall/deno-license`
 
-- Run the utility from your project root
+- Run the utility from the project root
 - You will be prompted for required information
 
 ```bash
