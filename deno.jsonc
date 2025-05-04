@@ -1,0 +1,42 @@
+{
+  "name": "@jaredhall/deno-license",
+  "version": "1.0.0",
+  "exports": "./mod.ts",
+  "compilerOptions": {
+    "lib": ["dom", "deno.ns"]
+  },
+  "tasks": {
+    // use the plugin in this project
+    "license:add": "deno run --allow-write mod.ts",
+    // fetch official licenses from the internet
+    "build": "deno run --allow-read --allow-write --allow-net scripts/fetch-licenses.ts",
+    // run the test suite
+    "test": "deno test --allow-read --allow-write --allow-net"
+  },
+  "imports" : {
+    "@std/assert": "jsr:@std/assert@^1.0.0",
+    "@std/testing": "jsr:@std/testing@^1.0.0"
+  },
+  "fmt": {
+    "useTabs": true,
+    "lineWidth": 120,
+    "indentWidth": 4,
+    "semiColons": false,
+    "singleQuote": true,
+    "proseWrap": "preserve",
+    "include": [
+      "src/*.ts",
+      "scripts/*.ts",
+      "tests/*.ts"
+    ]
+  },
+  "publish": {
+    "include": [
+      "LICENSE",
+      "README.md",
+      "mod.ts",
+      "src/**/*.ts",
+      "src/licenses.json"
+    ]
+  }
+}
