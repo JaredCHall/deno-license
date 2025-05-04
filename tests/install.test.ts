@@ -1,35 +1,31 @@
-import { assertStringIncludes } from "@std/assert"
-import { installWithPrompts } from "../src/install.ts"
-import type { LicenseRegistry} from "../src/LicenseRegistry.ts";
+import { assertStringIncludes } from '@std/assert'
+import { installWithPrompts } from '../src/install.ts'
+import type { LicenseRegistry } from '../src/LicenseRegistry.ts'
 
-Deno.test("installWithPrompts installs license with mocked registry", async () => {
+Deno.test('installWithPrompts installs license with mocked registry', async () => {
 	const tempDir = await Deno.makeTempDir()
 
 	//@ts-ignore - mock
 	const mockRegistry: LicenseRegistry = {
 		has: () => true,
-		expectedMappings: () => ["year", "owner"],
-		fetch: (lic: string, year: string, owner: string) =>
-				`License: ${lic}\nYear: ${year}\nOwner: ${owner}`,
+		expectedMappings: () => ['year', 'owner'],
+		fetch: (lic: string, year: string, owner: string) => `License: ${lic}\nYear: ${year}\nOwner: ${owner}`,
 	}
 
 	try {
-		withExpectedPrompts([],async () => {
+		withExpectedPrompts([], async () => {
 			await installWithPrompts(`${tempDir}/LICENSE.txt`, mockRegistry)
 
 			const writtenText = await Deno.readTextFile(`${tempDir}/LICENSE.txt`)
 
-			assertStringIncludes(writtenText, "License: mit")
-			assertStringIncludes(writtenText, "Year: 2024")
-			assertStringIncludes(writtenText, "Owner: Ada Lovelace")
+			assertStringIncludes(writtenText, 'License: mit')
+			assertStringIncludes(writtenText, 'Year: 2024')
+			assertStringIncludes(writtenText, 'Owner: Ada Lovelace')
 		})
-
 	} finally {
-		await Deno.remove(tempDir, { recursive: true})
+		await Deno.remove(tempDir, { recursive: true })
 	}
 })
-
-
 
 interface ExpectedPrompt {
 	message: string
@@ -43,7 +39,7 @@ function expectPromptChain(prompts: ExpectedPrompt[]) {
 	globalThis.prompt = (msg: string | undefined) => {
 		if (promptIndex >= prompts.length) {
 			throw new Error(
-					`Too many prompts: ${promptIndex + 1} > ${prompts.length}`,
+				`Too many prompts: ${promptIndex + 1} > ${prompts.length}`,
 			)
 		}
 
@@ -53,7 +49,7 @@ function expectPromptChain(prompts: ExpectedPrompt[]) {
 
 		if (!(msg ?? '').includes(expectedMessage)) {
 			throw new Error(
-					`Unexpected prompt at index ${promptIndex}:
+				`Unexpected prompt at index ${promptIndex}:
 Expected: "${expectedMessage}"
 Received: "${msg}"
 `,
@@ -69,8 +65,8 @@ Received: "${msg}"
 }
 
 function withExpectedPrompts(
-		prompts: ExpectedPrompt[],
-		testFn: () => Promise<void>,
+	prompts: ExpectedPrompt[],
+	testFn: () => Promise<void>,
 ) {
 	return async () => {
 		const restore = expectPromptChain(prompts)
