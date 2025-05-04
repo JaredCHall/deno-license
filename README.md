@@ -1,5 +1,8 @@
 # deno-license
 
+[![deno module](https://img.shields.io/badge/deno%20module-jsr:@jaredhall/deno--license-blue?logo=deno)](https://jsr.io/@jaredhall/deno-license)
+[![CI](https://github.com/JaredCHall/deno-license/actions/workflows/ci.yml/badge.svg)](https://github.com/JaredCHall/deno-license/actions/workflows/ci.yml)
+
 **OSI-compliant license scaffolding for Deno projects.**  
 
 This tool helps you apply consistent, open-source licenses to your libraries or applications—quickly and correctly.
