@@ -1,32 +1,24 @@
 import rawLicenses from './licenses.json' with { type: 'json' }
 
-/**
- * A record of available licenses keyed by their lowercase name.
- */
+/** A record of available licenses keyed by their lowercase name. */
 const licenses: Record<string, string> = rawLicenses
 
-/**
- * Options for installing a software license.
- */
+/** Options for installing a software license. */
 export interface InstallLicenseOptions {
+	/** The SPDX ID or string similar to the SPDX id (e.g., "MIT", "BSD", "gpl","GPL-3.0","gpl3") */
 	license: string
+	/** The target directory (defaults to '.') */
 	projectPath?: string
 }
-/**
- * Install a LICENSE file into the given project directory.
- *
- * @param options - The license options
- * @param options.projectPath - The target directory (defaults to '.')
- * @param options.license - The SPDX ID or string similar to the SPDX id (e.g., "MIT", "BSD", "gpl","GPL-3.0","gpl3")
- */
+
+/** Install a LICENSE file into the given project directory. Prompts User for licensing details. */
 export async function installLicense(
 	options: InstallLicenseOptions,
 ): Promise<void> {
 	const { license } = options
 	const projectPath = options.projectPath || './'
 
-	const licenseText = getLicenseText(normalizeLicenseKey(license))
-
+	const licenseText = licenses[normalizeLicenseKey(license)]
 	const targetLicensePath = `${projectPath}/LICENSE`
 
 	// Write LICENSE file
@@ -35,10 +27,7 @@ export async function installLicense(
 	console.log(`✅ License written to ${targetLicensePath}`)
 }
 
-function getLicenseText(license: string): string {
-	return licenses[normalizeLicenseKey(license)]
-}
-
+/** Convert User input into SPDX id */
 function normalizeLicenseKey(input: string): string {
 	const key = input.toLowerCase().replace(/[-_.]/g, '')
 
@@ -71,13 +60,13 @@ function normalizeLicenseKey(input: string): string {
 	}
 }
 
+/** Replace tokens in license templates. Prompts User for additional details when tokens are found */
 function applyTemplatePlaceholders(text: string): string {
 	const year = new Date().getFullYear().toString()
 
 	let owner: string | undefined
 	let software: string | undefined
 
-	// Prompt only if required
 	const needsOwner = text.includes('<owner>') ||
 		text.includes('<copyright holders>') ||
 		text.includes('(COPYRIGHT HOLDER(S)/AUTHOR(S))')

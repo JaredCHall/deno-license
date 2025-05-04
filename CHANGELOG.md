@@ -1,3 +1,10 @@
+## [1.0.3] - 2025-05-04
+
+- Fix stale README example
+- Improve publish workflow
+- Test if JSR picks up JSDoc from imports
+- Remove extraneous method
+
 ## [1.0.2] - 2025-05-04
 
 - Added JSDoc comments to all exported symbols

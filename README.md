@@ -32,9 +32,8 @@ You may also want to use the module programmatically in your Deno tooling.
 import { installLicense } from "jsr:jaredhall/deno-license";
 
 await installLicense({
-  projectPath: "./my-project",
-  type: "library",
-  license: "MIT",
+  projectPath: "./my-other-project", // optional defaults to working directory
+  license: "MIT", // optional will prompt if not provided
 });
 ```
 
