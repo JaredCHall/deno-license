@@ -15,12 +15,11 @@ if (import.meta.main) {
   const licenseIndex = args.indexOf("--license");
   let licenseArg = args.at(licenseIndex + 1);
   if (!licenseArg) {
-    licenseArg = prompt("📜 License (bsd, mit, gpl, agpl, hippocratic):")?.trim().toLowerCase();
+    licenseArg = prompt("📜 License (bsd, mit, gpl, agpl, hippocratic):","bsd")?.trim().toLowerCase();
   }
 
   if (!licenseArg) {
     console.error("❌ License is required.");
-    showUsage();
     Deno.exit(1);
   }
 
@@ -37,12 +36,4 @@ if (import.meta.main) {
     }
     Deno.exit(1);
   }
-}
-
-function showUsage() {
-  console.log(`
-Usage:
-  deno run --allow-read --allow-write --allow-net mod.ts \\
-    --license [bsd|mit|gpl|agpl|hippocratic]
-`);
 }

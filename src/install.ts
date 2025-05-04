@@ -1,12 +1,24 @@
 import rawLicenses from './licenses.json' with { type: 'json' }
 
+/**
+ * A record of available licenses keyed by their lowercase name.
+ */
 const licenses: Record<string, string> = rawLicenses
 
+/**
+ * Options for installing a software license.
+ */
 export interface InstallLicenseOptions {
 	license: string
 	projectPath?: string
 }
-
+/**
+ * Install a LICENSE file into the given project directory.
+ *
+ * @param options - The license options
+ * @param options.projectPath - The target directory (defaults to '.')
+ * @param options.license - The SPDX ID or string similar to the SPDX id (e.g., "MIT", "BSD", "gpl","GPL-3.0","gpl3")
+ */
 export async function installLicense(
 	options: InstallLicenseOptions,
 ): Promise<void> {

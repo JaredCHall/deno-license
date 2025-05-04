@@ -1,3 +1,9 @@
+## [1.0.2] - 2025-05-04
+
+- Added JSDoc comments to all exported symbols
+- Removed showUsage() method
+- Added default value for main prompt
+
 ## [1.0.1] - 2025-05-04
 
 - Added GitHub Actions-based CI publish workflow
