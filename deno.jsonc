@@ -11,7 +11,9 @@
     // fetch official licenses from the internet
     "build": "deno run --allow-read --allow-write --allow-net scripts/fetch-licenses.ts",
     // run the test suite
-    "test": "deno test --allow-read --allow-write --allow-net"
+    "test": "deno test --allow-read --allow-write --allow-net",
+    // ensure commit is valid
+    "check": "deno fmt && deno lint && deno task test"
   },
   "imports" : {
     "@std/assert": "jsr:@std/assert@^1.0.0",

@@ -3,7 +3,7 @@ import { LicenseRegistry } from './LicenseRegistry.ts'
 /** install a license from the LicenseRegistry with prompts for additional information */
 export async function installWithPrompts(
 	outputPath: string = 'LICENSE',
-	registry = new LicenseRegistry(),
+	registry: LicenseRegistry = new LicenseRegistry(),
 ): Promise<void> {
 	const license = LicenseRegistry.normalizeKey(
 		promptUser('📜 License (bsd, mit, gpl, agpl, hippocratic):'),

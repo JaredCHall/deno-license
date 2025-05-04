@@ -49,7 +49,7 @@ export class LicenseRegistry {
 		year: string = '????',
 		owner: string = 'Anonymous',
 		softwareName: string = 'This Software',
-	) {
+	): string {
 		const placeHolders = this.templatePlaceHolders[license] ?? []
 		const replacementMap: Record<string, string> = { year, owner, softwareName }
 		let text = this.templates[license] ?? null
