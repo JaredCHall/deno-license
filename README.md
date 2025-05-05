@@ -9,13 +9,13 @@ This tool helps to apply consistent, open-source licenses to libraries or applic
 
 ## Usage
 
-### `deno run --allow-write jsr:jaredhall/deno-license`
+### `deno run --allow-write jsr:@jaredhall/deno-license`
 
 - Run the utility from the project root
 - You will be prompted for required information
 
 ```bash
-deno run --allow-write jsr:jaredhall/deno-license
+deno run --allow-write jsr:@jaredhall/deno-license
 📜 License (bsd, mit, gpl, agpl, hippocratic): BSD # input is case-insensitive
 📅 Year of copyright: 2025
 👤 Enter license holder name: Somebody Somewhere

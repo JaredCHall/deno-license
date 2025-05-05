@@ -1,3 +1,7 @@
+## [1.1.2] - 2025-05-04
+
+- Fix JSR import path in the README
+
 ## [1.1.1] - 2025-05-04
 
 - Improve test coverage by removing overaggressive mockery
